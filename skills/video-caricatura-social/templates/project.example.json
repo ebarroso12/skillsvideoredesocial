@@ -1,0 +1,53 @@
+{
+  "titulo": "Exemplo — quando o silêncio pesa",
+  "max_segundos": 60,
+  "cenas": [
+    {
+      "imagem": "cenas/cena_01.png",
+      "texto": "Você já se sentiu sozinho, mesmo tentando ser forte todos os dias?",
+      "movimento": "zoom_in"
+    },
+    {
+      "imagem": "cenas/cena_02.png",
+      "texto": "Por fora, você continua sorrindo. Por dentro, pode estar travando uma batalha que ninguém vê.",
+      "movimento": "pan_right"
+    },
+    {
+      "imagem": "cenas/cena_03.png",
+      "texto": "E sabe o que quero lhe dizer? Você não precisa carregar tudo sozinho.",
+      "movimento": "zoom_out"
+    },
+    {
+      "imagem": "cenas/cena_04.png",
+      "texto": "Cuidar da saúde também é cuidar do ser humano. Sua história merece respeito.",
+      "movimento": "pan_left"
+    },
+    {
+      "imagem": "cenas/cena_05.png",
+      "texto": "E você merece ser ouvido.",
+      "movimento": "zoom_in"
+    }
+  ],
+  "audio": {
+    "voz": null,
+    "musica": null
+  },
+  "legenda": {
+    "palavras_por_bloco": 3,
+    "tamanho": 100,
+    "posicao_y": 1280
+  },
+  "marca_dagua": {
+    "cor": "auto"
+  },
+  "cta": {
+    "ativo": true,
+    "duracao": 4.5,
+    "titulo": "Agende sua consulta",
+    "subtitulo": "e dê o primeiro passo para cuidar de você"
+  },
+  "post": {
+    "corpo": "Você já se sentiu sozinho, mesmo tentando ser forte todos os dias?\n\nPor fora, você continua sorrindo. Por dentro, pode estar travando uma batalha que ninguém vê.\n\nE sabe o que quero lhe dizer? Você não precisa carregar tudo sozinho.\n\nComo médico, acredito em uma medicina que escuta antes de julgar e acolhe antes de orientar.\n\nSua saúde merece atenção. Sua história merece respeito. E você merece ser ouvido.",
+    "incluir_cta": true
+  }
+}

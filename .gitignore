@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+*.part.mp4
+video_final.mp4
+video_preview.mp4
+.DS_Store

@@ -1,0 +1,12 @@
+{
+  "name": "skillsvideoredesocial",
+  "owner": { "name": "Dr. Edson Barroso" },
+  "plugins": [
+    {
+      "name": "video-caricatura-social",
+      "source": "./",
+      "description": "Videos verticais de ate 60 s para redes sociais: caricatura/desenho, legenda dourada, marca d'agua e chamada para consulta.",
+      "version": "1.0.0"
+    }
+  ]
+}
