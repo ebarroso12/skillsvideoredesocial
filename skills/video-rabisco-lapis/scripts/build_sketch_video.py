@@ -630,7 +630,7 @@ def render_scene(sc, idx, dur, W, H, s, paper, tool, ink_val, tmp, fonts_dir, wm
     # --- ass + ffmpeg
     ass_name = f"cap_{idx:02d}.ass"
     if cap_cfg.get("ativa", True) and sc.get("texto"):
-        (tmp / ass_name).write_text(build_ass(sc["texto"], dur, cap_cfg, int(cap_cfg.get("posicao_y", 1470))), encoding="utf-8")
+        (tmp / ass_name).write_text(build_ass(sc["texto"], min(dur, sc["_fala_dur"] + 0.7) if sc.get("_fala_dur") else dur, cap_cfg, int(cap_cfg.get("posicao_y", 1470))), encoding="utf-8")
         ass_f = f",ass={ass_name}:fontsdir=fonts"
     else:
         ass_f = ""
@@ -724,14 +724,32 @@ def main():
     words = [count_words(sc.get("texto", "")) for sc in scenes]
     explicit = [sc.get("duracao") for sc in scenes]
     need_write = [1.6 + 0.11 * len(sc.get("escrever", "")) + (2.0 if sc.get("imagem") else 0) for sc in scenes]
-    if voice:
+    per_scene = all(sc.get("voz") for sc in scenes)
+    scene_voices = [res(sc["voz"]) for sc in scenes] if per_scene else []
+    for sc, v in zip(scenes, scene_voices):
+        if v.exists():
+            sc["_fala_dur"] = probe_duration(v)
+    for v in scene_voices:
+        if not v.exists():
+            die(f"Voz da cena nao encontrada: {v}")
+    if per_scene:
+        voice = None
+        tail = float(audio_cfg.get("voz_tail", 0.7))
+        durs = []
+        for i, (sc, v) in enumerate(zip(scenes, scene_voices)):
+            d = probe_duration(v) + tail + (0.5 if i == len(scenes) - 1 else 0)
+            floor = 5.0 if sc.get("imagem") else 2.4 + 0.08 * len(sc.get("escrever", ""))
+            if sc.get("imagem") and sc.get("escrever"):
+                floor += 1.5
+            durs.append(max(d, floor, float(sc.get("duracao_min", 0))))
+    elif voice:
         vdur = probe_duration(voice) + float(audio_cfg.get("voz_tail", 0.4))
         if all(explicit):
             durs = [float(x) for x in explicit]
         else:
             tw = sum(max(w, 1) for w in words)
             durs = [vdur * max(w, 1) / tw for w in words]
-    else:
+    elif not per_scene:
         durs = [float(e) if e else max(MIN_SCENE, w / WORDS_PER_SECOND + 0.8, nw) for e, w, nw in zip(explicit, words, need_write)]
 
     total = sum(durs) + cta_dur
@@ -799,6 +817,21 @@ def main():
              silent.name], cwd=tmp)
         vid_dur = probe_duration(silent)
 
+        if per_scene:
+            parts = []
+            for i, (v, d) in enumerate(zip(scene_voices, durs), 1):
+                o = tmp / f"vs_{i:02d}.wav"
+                run(["ffmpeg", "-y", "-hide_banner", "-loglevel", "error", "-i", str(v), "-af", f"aresample=44100,apad=whole_dur={d:.3f}",
+                     "-t", f"{d:.3f}", "-ac", "1", o.name], cwd=tmp)
+                parts.append(o.name)
+            if cta_on:
+                run(["ffmpeg", "-y", "-hide_banner", "-loglevel", "error", "-f", "lavfi", "-i", "anullsrc=r=44100:cl=mono", "-t",
+                     f"{cta_dur:.3f}", "vs_cta.wav"], cwd=tmp)
+                parts.append("vs_cta.wav")
+            (tmp / "vlist.txt").write_text("".join(f"file '{n}'\n" for n in parts), encoding="utf-8")
+            run(["ffmpeg", "-y", "-hide_banner", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", "vlist.txt", "-c", "copy",
+                 "voz_all.wav"], cwd=tmp)
+            voice = tmp / "voz_all.wav"
         cmd = ["ffmpeg", "-y", "-hide_banner", "-loglevel", "error", "-i", str(silent)]
         filt, labels, idx = [], [], 1
         if voice:

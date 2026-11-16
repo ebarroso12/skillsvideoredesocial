@@ -42,7 +42,7 @@ Pergunte apenas o que faltar; se já deu tema, personagem e clima, comece.
 | **Tema / dor** | pergunte — é o essencial |
 | **Quem desenha**: (a) caricatura da própria pessoa (precisa da foto dela), (b) outro personagem/figura conhecida, (c) personagem original / só texto e símbolos | assuma (c) e avise |
 | **Ferramenta**: `marcador` (preto, grosso — padrão), `lapis` (grafite) | marcador |
-| **Voz**: gravada, TTS, ou só legenda + música | só legenda |
+| **Voz**: gravada pelo usuário, narração gerada (grátis, offline) ou só legenda + música | gere a narração com `narrar_kokoro.py` (voz masculina pt-BR) e trilha com `gerar_trilha.py` |
 | **Duração** | 35–50 s (limite 60 s, nunca ultrapasse) |
 
 ### 1. Roteiro
@@ -108,6 +108,19 @@ Requisitos: `python3`, `pip install numpy scipy scikit-image opencv-python-headl
 Nunca entregue acima de 60 s. No log, a linha de cada cena mostra traços, pixels e tempo de desenho; se aparecer
 "muito rápido: simplifique a arte", a arte tem detalhe demais — gere uma versão com menos hachura.
 
+#### Narração e trilha (grátis, offline)
+
+```bash
+pip install kokoro-onnx soundfile
+python3 <skill>/scripts/narrar_kokoro.py project.json            # voz por cena (pm_alex; --voz pf_dora p/ feminina)
+python3 <skill>/scripts/gerar_trilha.py trilha.wav --clima triste # trilha ambiente sem direitos autorais
+```
+
+`narrar_kokoro.py` grava `cenas[].voz`; com voz em todas as cenas o motor **ajusta o tempo de cada cena à fala**
+(legenda sincronizada). Use `cenas[].fala` para o texto falado (se diferente da legenda `texto`). No `project.json`:
+`"audio": {"musica": "trilha.wav", "musica_volume": 0.16, "som_lapis_volume": 0.35, "voz_volume": 1.15}`.
+Modelos (~350 MB) baixam uma vez do GitHub para `~/.cache/skills-video/`. Se o usuário enviar a própria narração, use `audio.voz`.
+
 ### 5. Conferir antes de entregar
 
 - Duração ≤ 60 s (o script valida).
@@ -164,6 +177,7 @@ Para outra pessoa/clínica, troque o `brand.json` e os logos. Se os botões do I
 
 - `scripts/build_sketch_video.py` — motor (esqueleto → caminho da caneta → animação → ffmpeg), tela final, legenda do post, trava de 60 s.
 - `scripts/foto_para_rabisco.py` — foto → arte de linhas (offline).
+- `scripts/narrar_kokoro.py`, `scripts/gerar_trilha.py` — narração pt-BR por cena e trilha ambiente (grátis, offline).
 - `scripts/make_test_art.py`, `scripts/make_sprites.py` — arte de teste e gerador dos sprites da mão.
 - `references/prompts-rabisco.md` — prompts para gerar a arte em linhas e a caricatura em rabisco.
 - `references/roteiro-empatico.md`, `personagens-conhecidos.md`, `voz-e-audio.md` — roteiro, personagens, áudio.
