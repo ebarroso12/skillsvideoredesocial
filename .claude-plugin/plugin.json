@@ -1,7 +1,9 @@
 {
-  "name": "video-caricatura-social",
-  "description": "Videos verticais de ate 60 s para redes sociais: caricatura/desenho, legenda dourada palavra por palavra, marca d'agua e chamada para consulta.",
-  "version": "1.0.0",
-  "author": { "name": "Dr. Edson Barroso" },
+  "name": "skillsvideoredesocial",
+  "description": "Duas skills de video vertical de ate 60 s para redes sociais: video-caricatura-social (caricatura/pintura, legenda dourada) e video-rabisco-lapis (rabisco preto e branco com mao desenhando). Marca d'agua, CTA de consulta e legenda do post.",
+  "version": "1.1.0",
+  "author": {
+    "name": "Dr. Edson Barroso"
+  },
   "homepage": "https://github.com/ebarroso12/skillsvideoredesocial"
 }

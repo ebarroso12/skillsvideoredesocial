@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Instala a skill "video-caricatura-social" no Claude Code, Codex e/ou outras pastas de skills.
+# Instala as skills "video-caricatura-social" e "video-rabisco-lapis" no Claude Code, Codex e/ou outras pastas de skills.
 # Uso:
 #   ./install.sh                  # instala no Claude Code (~/.claude/skills)
 #   ./install.sh --target codex   # Codex (~/.codex/skills)
@@ -9,10 +9,11 @@
 #   ./install.sh --project        # na pasta .claude/skills do projeto atual
 set -euo pipefail
 
-SKILL="video-caricatura-social"
+SKILLS=("video-caricatura-social" "video-rabisco-lapis")
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SRC="$HERE/skills/$SKILL"
-[ -f "$SRC/SKILL.md" ] || { echo "ERRO: $SRC/SKILL.md nao encontrado. Rode o script dentro do repositorio clonado." >&2; exit 1; }
+for SKILL in "${SKILLS[@]}"; do
+  [ -f "$HERE/skills/$SKILL/SKILL.md" ] || { echo "ERRO: $HERE/skills/$SKILL/SKILL.md nao encontrado. Rode o script dentro do repositorio clonado." >&2; exit 1; }
+done
 
 targets=()
 while [ $# -gt 0 ]; do
@@ -36,15 +37,18 @@ done
 
 for dest in "${targets[@]}"; do
   mkdir -p "$dest"
-  rm -rf "$dest/$SKILL"
-  cp -R "$SRC" "$dest/$SKILL"
-  find "$dest/$SKILL" -name "__pycache__" -type d -prune -exec rm -rf {} + 2>/dev/null || true
-  echo "Instalada em: $dest/$SKILL"
+  for SKILL in "${SKILLS[@]}"; do
+    rm -rf "$dest/$SKILL"
+    cp -R "$HERE/skills/$SKILL" "$dest/$SKILL"
+    find "$dest/$SKILL" -name "__pycache__" -type d -prune -exec rm -rf {} + 2>/dev/null || true
+    echo "Instalada em: $dest/$SKILL"
+  done
 done
 
 echo
 echo "Verificando requisitos..."
 command -v python3 >/dev/null || echo "  FALTA: python3"
 python3 -c "import PIL" 2>/dev/null || echo "  FALTA: Pillow  ->  pip install pillow"
+python3 -c "import numpy, scipy, skimage, cv2" 2>/dev/null || echo "  FALTA (skill rabisco): pip install numpy scipy scikit-image opencv-python-headless"
 command -v ffmpeg  >/dev/null || echo "  FALTA: ffmpeg  ->  https://ffmpeg.org/download.html"
-echo "Pronto. Abra uma nova sessao e peca, por exemplo: 'Crie um video caricatura de 45 segundos sobre solidao'."
+echo "Pronto. Abra uma nova sessao e peca, por exemplo: 'Crie um video caricatura de 45 segundos sobre solidao' ou 'Crie um video rabisco a lapis preto e branco sobre ansiedade'."

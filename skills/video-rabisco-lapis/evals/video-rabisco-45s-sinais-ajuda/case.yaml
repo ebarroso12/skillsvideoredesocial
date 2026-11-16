@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: video-rabisco-45s-sinais-ajuda
+expected_outcome: |
+  O resultado é um vídeo rabisco de até 60 s com cenas de texto manuscrito e desenho, marca d'água no canto inferior direito, legenda e tela final de consulta, mais legenda.txt empática com CTA, usando o motor build_sketch_video.py e conferindo quadros e duração.

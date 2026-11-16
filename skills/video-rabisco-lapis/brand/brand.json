@@ -1,0 +1,39 @@
+{
+  "_comentario": "Dados da marca usados na marca d'agua, na tela final (CTA) e na legenda do post. Para outra pessoa/clinica, troque este arquivo e os logos em brand/logos/.",
+  "nome": "Dr. Edson Barroso",
+  "especialidade": "Saúde Mental Adulto e Infantil",
+  "registro_profissional": "CRM-SP 219175",
+  "whatsapp": "(16) 99312-0938",
+  "whatsapp_link": "https://wa.me/5516993120938",
+  "endereco": [
+    "Edifício Santa Maria — Sala 403",
+    "Rua Paulo César Pachêco, 470",
+    "Bairro São José — Franca/SP",
+    "CEP: 14401-283"
+  ],
+  "site": "www.dredsonbarroso.com.br",
+  "instagram": "@dredsonbarroso",
+  "cta_frase": "Agende sua consulta e dê o primeiro passo para cuidar de você.",
+  "hashtags_base": ["#DrEdsonBarroso", "#SaudeMental", "#SaudeEmocional", "#CuidadoHumanizado", "#FrancaSP"],
+  "cores": {
+    "legenda_dourado": "#E9C46A",
+    "contorno_legenda": "#101820",
+    "marinho": "#0B172B",
+    "marinho_claro": "#14294A",
+    "bronze": "#A47C58"
+  },
+  "marca_dagua": {
+    "posicao": "inferior-direito",
+    "largura_pct": 13,
+    "opacidade": 0.92,
+    "margem_direita_px": 44,
+    "margem_inferior_px": 190,
+    "variantes": {
+      "dourado": "logos/simbolo-dourado.png",
+      "branco": "logos/simbolo-branco.png",
+      "azul": "logos/simbolo-azul.png",
+      "preto": "logos/simbolo-preto.png"
+    }
+  },
+  "cta_logo": "logos/logo-vertical-simbolo-dourado-texto-branco.png"
+}

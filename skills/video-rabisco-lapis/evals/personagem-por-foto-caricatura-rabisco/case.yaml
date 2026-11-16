@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: personagem-por-foto-caricatura-rabisco
+expected_outcome: |
+  A skill usa apenas a foto enviada pela própria pessoa, transforma em arte de linhas (foto_para_rabisco.py ou gerador de imagem), mantém o estilo respeitoso e monta o vídeo com a trava de 60 s e a marca d'água.

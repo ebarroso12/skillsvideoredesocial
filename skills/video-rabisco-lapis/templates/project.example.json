@@ -1,0 +1,19 @@
+{
+  "max_segundos": 60,
+  "ferramenta": "marcador",
+  "legenda": { "ativa": true, "posicao_y": 1470 },
+  "audio": { "som_lapis": true },
+  "marca_dagua": { "cor": "preto" },
+  "cta": { "ativo": true, "duracao": 4.5, "titulo": "Agende sua consulta", "subtitulo": "e dê o primeiro passo para cuidar de você" },
+  "cenas": [
+    { "escrever": "Há batalhas que ninguém vê", "texto": "Há batalhas que ninguém vê.", "duracao": 5.5 },
+    { "imagem": "cena_02.png", "texto": "Você sorri por fora, mas por dentro tudo pesa.", "duracao": 8 },
+    { "escrever": "3", "tamanho_escrita": 700, "texto": "Três sinais de que é hora de pedir ajuda.", "duracao": 4 },
+    { "escrever": "1. Cansaço que o sono não resolve", "fonte": "manuscrito", "texto": "Primeiro: um cansaço que o sono não resolve.", "duracao": 5 },
+    { "escrever": "Você não precisa carregar isso sozinho", "texto": "Você não precisa carregar isso sozinho.", "duracao": 5.5 }
+  ],
+  "post": {
+    "corpo": "Tem dor que não aparece em foto nem em sorriso. Se você se reconheceu aqui, saiba: pedir ajuda não é fraqueza, é cuidado. Você não está sozinho.\n\nSe estiver em sofrimento intenso, ligue 188 (CVV, 24 h) ou 192 (SAMU).",
+    "incluir_cta": true
+  }
+}

@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: limite-60s-roteiro-longo
+expected_outcome: |
+  A skill não entrega vídeo acima de 60 s: explica o limite, condensa o texto para caber ou divide em partes, e valida a duração com o plano de tempos do script.
